@@ -102,6 +102,7 @@ const questions = [
     name: 'targetEnv',
     message: 'What is your target deployment environment?',
     choices: [
+      { name: 'None', value: false },
       { name: 'Heroku', value: 'foreman' },
       { name: 'Docker', value: 'docker' }
     ],
