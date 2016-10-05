@@ -1,0 +1,5 @@
+--recursive
+{% if tags.frontend -%}
+--require reify
+--compilers js:buble/register
+{%- endif %}

@@ -1,0 +1,3 @@
+{% if projectType != 'lib' -%}
+PORT=5000
+{%- endif %}
