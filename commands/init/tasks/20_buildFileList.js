@@ -6,10 +6,10 @@ const templates = path.resolve(__dirname + '/../template');
 const utils = require('../utils');
 
 function renameDotFile (file) {
-  var fpath = file.split(path.delimiter);
+  var fpath = file.split('/');
   var fname = fpath.pop();
   if (fname[0] !== '_') return file;
-  return fpath.concat('.' + fname.slice(1)).join(path.delimiter);
+  return fpath.concat('.' + fname.slice(1)).join('/');
 }
 
 function baseFiles (input, done) {
