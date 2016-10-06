@@ -1,6 +1,6 @@
 {
   "name": "helpful-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Command line utility for the Helpful Human team.",
   "main": "index.js",
   "scripts": {
