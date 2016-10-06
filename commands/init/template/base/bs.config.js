@@ -1,4 +1,5 @@
 require('dotenv').load({ silent: true });
+const path = require('path');
 const proxyPort = parseInt(process.env.PORT || 5000);
 const port = proxyPort + 1;
 
@@ -33,7 +34,16 @@ module.exports = {
     "proxy": 'http://localhost:' + proxyPort,
     "server": false,
     {%- else -%}
-    "server": "public",
+    "server": {
+        "baseDir": "public",
+        "middleware": function (req, res, next) {
+            var ext = path.extname(req.url);
+            if ( ! ext || ext === '') {
+                req.url = '/index.html';
+            }
+            next();
+        }
+    },
     {%- endif %}
     "port": port,
     "middleware": false,
