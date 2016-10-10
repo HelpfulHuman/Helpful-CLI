@@ -24,7 +24,7 @@ function baseFiles (input, done) {
       'public/index.html': (input.projectType !== 'lib' && input.tags.frontend && !input.templating),
       'test/mocha.opts': input.tags.javascript,
       'bs.config.js': utils.has(input.deps.jsDev, 'browser-sync'),
-      'rollup.config.js': utils.has(inputs.deps.jsDev, 'rollup', true),
+      'rollup.config.js': utils.has(input.deps.jsDev, 'rollup', true),
       Procfile: (input.targetEnv === 'foreman'),
       Dockerfile: (input.targetEnv === 'docker'),
       LICENSE: (input.projectType === 'lib')
