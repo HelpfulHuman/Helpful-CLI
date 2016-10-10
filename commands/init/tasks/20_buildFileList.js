@@ -17,14 +17,14 @@ function baseFiles (input, done) {
     .getTruthyKeys({
       'README.md': true,
       _gitignore: true,
-      _env: (input.deps.js.indexOf('dotenv') !== -1),
-      '_env.example': (input.deps.js.indexOf('dotenv') !== -1),
+      _env: utils.has(input.deps.jsDev, 'dotenv', true),
+      '_env.example': utils.has(input.deps.jsDev, 'dotenv', true),
       'public/_gitignore': (input.tags.frontend && input.projectType !== 'lib'),
       'public/images/_gitkeep': (input.tags.frontend && input.projectType !== 'lib'),
       'public/index.html': (input.projectType !== 'lib' && input.tags.frontend && !input.templating),
       'test/mocha.opts': input.tags.javascript,
-      'bs.config.js': (input.deps.jsDev.indexOf('browser-sync') !== -1),
-      'rollup.config.js': (input.deps.jsDev.indexOf('rollup') !== -1),
+      'bs.config.js': utils.has(input.deps.jsDev, 'browser-sync'),
+      'rollup.config.js': utils.has(inputs.deps.jsDev, 'rollup', true),
       Procfile: (input.targetEnv === 'foreman'),
       Dockerfile: (input.targetEnv === 'docker'),
       LICENSE: (input.projectType === 'lib')

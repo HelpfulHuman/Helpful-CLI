@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
+const utils = require('../utils');
 
 module.exports = function (input, done) {
   var pkg = {
@@ -19,18 +20,18 @@ module.exports = function (input, done) {
     license: (input.projectType === 'lib' ? 'MIT' : 'ISC')
   };
 
-  if (input.deps.js.indexOf('http-server') !== -1) {
+  if (utils.has(input.deps.js, 'http-server', true)) {
     pkg.scripts['start'].push('http-server');
   }
 
-  if (input.deps.jsDev.indexOf('stylus') !== -1) {
+  if (utils.has(input.deps.jsDev, 'stylus', true)) {
       pkg.scripts['dev:start'].push('npm run watch:styles');
       pkg.scripts['build'].push('npm run build:styles');
       pkg.scripts['build:styles'] = 'stylus ' + (input.projectType === 'app' ? 'client' : 'src') + '/index.styl --use ./node_modules/helpful-ui --use ./node_modules/autoprefixer-stylus --out public/' + input.projectType + '.css';
       pkg.scripts['watch:styles'] = 'npm run build:styles -- --watch --sourcemap';
   }
 
-  if (input.deps.jsDev.indexOf('rollup') !== -1) {
+  if (utils.has(input.deps.jsDev, 'rollup', true)) {
     pkg.scripts['dev:start'].push('npm run watch:scripts');
     pkg.scripts['build'].push('npm run build:scripts');
     pkg.scripts['build:scripts'] = 'rollup --config';
@@ -51,7 +52,7 @@ module.exports = function (input, done) {
     pkg.scripts['dev:start'].push('nodemon server/index.js');
   }
 
-  if (input.deps.jsDev.indexOf('browser-sync') !== -1) {
+  if (utils.has(input.deps.jsDev, 'browser-sync')) {
     pkg.scripts['dev:start'].push('npm run reload');
     pkg.scripts['reload'] = 'browser-sync start --config bs.config.js';
   }

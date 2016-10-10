@@ -19,7 +19,7 @@ module.exports = function (input, done) {
     }
     if (input.projectType !== 'lib') {
       if (input.tags.frontend) {
-        jsDev.push('browser-sync');
+        jsDev.push('browser-sync@~2.16.0');
       }
     }
   }
