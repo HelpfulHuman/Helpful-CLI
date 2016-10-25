@@ -15,7 +15,7 @@ module.exports = function (input, done) {
     jsDeps.push('dotenv');
     jsDev.push('mocha', 'chai', 'sinon', 'sinon-chai');
     if (input.tags.frontend) {
-      jsDev.push('rollup', 'rollup-watch', 'rollup-plugin-json', 'rollup-plugin-node-resolve', 'rollup-plugin-commonjs', 'rollup-plugin-buble', 'buble', 'reify');
+      jsDev.push('rollup', 'rollup-watch', 'rollup-plugin-json', 'rollup-plugin-node-resolve', 'rollup-plugin-commonjs', 'rollup-plugin-buble', 'rollup-plugin-replace', 'buble', 'reify');
     }
     if (input.projectType !== 'lib') {
       if (input.tags.frontend) {

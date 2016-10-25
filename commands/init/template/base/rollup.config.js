@@ -4,6 +4,7 @@ const resolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
 const json = require('rollup-plugin-json');
 const buble = require('rollup-plugin-buble');
+const replace = require('rollup-plugin-replace');
 
 const env = {
   API_HOST: process.env.API_HOST,
@@ -28,6 +29,9 @@ module.exports = {
     {intro () {
       return `window.process = {env:${JSON.stringify(env)}};`
     }},
+    replace({
+      'process.env.NODE_ENV': JSON.stringify(env.NODE_ENV)
+    }),
     resolve({
       main: true,
       jsnext: true,
