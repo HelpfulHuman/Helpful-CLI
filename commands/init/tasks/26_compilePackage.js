@@ -64,7 +64,7 @@ module.exports = function (input, done) {
   Object.keys(pkg.scripts).forEach(function (script) {
     const val = pkg.scripts[script];
     if (val.length === 0) delete pkg.scripts[script];
-    else if (Array.isArray(val)) pkg.scripts[script] = val.join(' | ');
+    else if (Array.isArray(val)) pkg.scripts[script] = val.join(' & ');
   });
 
   fs.outputJson(path.join(input.dest, 'package.json'), pkg, { spaces: 2 }, done);
