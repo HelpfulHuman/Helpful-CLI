@@ -35,7 +35,7 @@ module.exports = function (input, done) {
     pkg.scripts['dev:start'].push('npm run watch:scripts');
     pkg.scripts['build'].push('npm run build:scripts');
     pkg.scripts['build:scripts'] = 'rollup --config';
-    pkg.scripts['watch:scripts'] = 'npm run build:scripts -- --watch';
+    pkg.scripts['watch:scripts'] = 'node bin/watch_scripts.js';
   }
 
   if (input.projectType === 'lib' && input.tags.frontend) {

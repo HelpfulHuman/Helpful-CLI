@@ -25,6 +25,7 @@ function baseFiles (input, done) {
       'test/mocha.opts': input.tags.javascript,
       'bs.config.js': utils.has(input.deps.jsDev, 'browser-sync'),
       'rollup.config.js': utils.has(input.deps.jsDev, 'rollup', true),
+      'bin/watch_scripts.js': utils.has(input.deps.jsDev, 'rollup', true),
       Procfile: (input.targetEnv === 'foreman'),
       Dockerfile: (input.targetEnv === 'docker'),
       LICENSE: (input.projectType === 'lib')
