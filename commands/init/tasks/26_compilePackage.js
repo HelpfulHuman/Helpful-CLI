@@ -31,7 +31,7 @@ module.exports = function (input, done) {
       pkg.scripts['watch:styles'] = 'npm run build:styles -- --watch --sourcemap';
   }
 
-  if (utils.has(input.deps.jsDev, 'rollup', true)) {
+  if (utils.has(input.deps.jsDev, 'rollup')) {
     pkg.scripts['dev:start'].push('npm run watch:scripts');
     pkg.scripts['build'].push('npm run build:scripts');
     pkg.scripts['build:scripts'] = 'rollup --config';
