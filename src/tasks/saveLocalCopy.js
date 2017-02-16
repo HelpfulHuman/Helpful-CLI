@@ -13,6 +13,14 @@ import request from "request";
  * @param  {Callback<Error>} next
  */
 export default function (ctx, next) {
+  process.stdout.write("  Attempting to download files... ");
+
+  // create a simple function for fail states
+  const fail = function (err) {
+    process.stdout.write("Nope.\n");
+    next(err);
+  }
+
   // get the extension for the file being downloaded
   var ext = path.extname(ctx.source.url);
 
@@ -25,8 +33,8 @@ export default function (ctx, next) {
 
   // create the file and start downloading the zip contents from the URL
   fs.createFile(dest, function (err) {
-    if (err) return next(err);
-    ctx.source.temp = dest;
+    if (err) return fail(err);
+    ctx.source.temp = tempDir;
 
     // create the stream into the destination folder
     var stream = request
@@ -34,9 +42,12 @@ export default function (ctx, next) {
       .pipe(fs.createWriteStream(dest));
 
     // handle errors
-    stream.on("error", next);
+    stream.on("error", fail);
 
     // take care of any finishing tasks
-    stream.on("finish", () => next());
+    stream.on("finish", function () {
+      process.stdout.write("So far so good.\n");
+      next();
+    });
   });
 }
