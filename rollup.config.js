@@ -1,4 +1,3 @@
-import commonjs from "rollup-plugin-commonjs";
 import buble from "rollup-plugin-buble";
 
 export default {
@@ -7,7 +6,6 @@ export default {
   format: "cjs",
   dest: "dist/index.js",
   plugins: [
-    commonjs(),
     buble()
   ],
   onwarn (message) {
