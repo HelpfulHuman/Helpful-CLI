@@ -12,7 +12,8 @@ export default function createContext (sourcePath, targetPath) {
   return {
     source: {
       path: sourcePath,
-      url: null
+      url: null,
+      temp: null
     },
     target: {
       originalPath: targetPath,

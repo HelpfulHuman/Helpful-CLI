@@ -18,16 +18,18 @@ export default function (ctx, next) {
   someSeries([
     isGithub
   ], function (test, next) {
-    test(ctx.source.path, next);
+    test(ctx.source.path, function (err, url) {
+      if (url) ctx.source.url = url;
+      next(err, !!url);
+    });
   }, function (err, result) {
     if ( ! err && result) {
-      ctx.source.url = result;
-      process.stdout.write("Looks good!");
+      process.stdout.write("Looks good!\n");
     } else if ( ! err && ! result) {
       err = new Error("The given template path could not be resolved.");
     }
     if (err) {
-      process.stdout.write("Nope.");
+      process.stdout.write("Nope.\n");
     }
     next(err);
   });
@@ -46,7 +48,7 @@ function isGithub (source, next) {
     var url = source.replace(GITHUB_URL, "https://github.com/$1");
     request(url, function (err, { statusCode }) {
       var valid = ( ! err && statusCode >= 200 && statusCode <= 299);
-      next(err, (valid ? url : null));
+      next(err, (valid ? url + "/archive/master.zip" : null));
     });
   }
 }
