@@ -11,7 +11,6 @@ import path from "path";
 export default function createContext (sourcePath, targetPath) {
   return {
     source: {
-      type: null,
       path: sourcePath,
       url: null
     },
