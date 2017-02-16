@@ -19,5 +19,3 @@ npm install -g helpful-cli
 1. Run `helpme add <template_url>` to start the installer.
 
 ## Creating Custom Templates
-
-WIP
