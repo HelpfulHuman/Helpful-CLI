@@ -3,6 +3,10 @@ import path from "path";
 /**
  * Sets up the initial structure of the context object using only
  * a sourcePath and targetPath string.
+ *
+ * @param  {String} sourcePath
+ * @param  {String} targetPath
+ * @return {Object}
  */
 export default function createContext (sourcePath, targetPath) {
   return {
@@ -15,6 +19,11 @@ export default function createContext (sourcePath, targetPath) {
       originalPath: targetPath,
       path: path.resolve(targetPath)
     },
-    input: {}
+    input: {},
+    manifest: {
+      ask: [],
+      copy: {},
+      run: []
+    }
   };
 }
