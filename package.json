@@ -1,13 +1,21 @@
 {
   "name": "helpful-cli",
-  "version": "1.0.8",
-  "description": "Command line utility for the Helpful Human team.",
-  "main": "index.js",
+  "version": "2.0.0-alpha",
+  "description": "Command line utility for custom project scaffolding.",
+  "main": "./dist/index.js",
   "scripts": {
-    "test": "mocha"
+    "preversion": "npm test",
+    "version": "npm run build",
+    "postversion": "git push origin master && git push origin master --tags",
+    "clean": "rm -rf dist/",
+    "build": "rollup -c",
+    "watch": "npm run build -- --watch",
+    "test": "mocha",
+    "tdd": "npm run test -- --watch",
+    "prepublish": "npm run clean && npm run build && npm run test"
   },
   "bin": {
-    "helpful": "./index.js"
+    "helpme": "./bin/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,9 +25,10 @@
     "helpfulhuman",
     "helpful",
     "tool",
-    "cli"
+    "cli",
+    "scaffolding"
   ],
-  "author": "Nick Glenn <nick@helpfulhuman.com>",
+  "author": "Helpful Human <hello@helpfulhuman.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/helpfulhuman/helpful-cli/issues"
@@ -37,5 +46,11 @@
     "nunjucks": "^2.5.2",
     "ramda": "^0.22.1",
     "shelljs": "^0.7.4"
+  },
+  "devDependencies": {
+    "rollup": "^0.41.4",
+    "rollup-plugin-buble": "^0.15.0",
+    "rollup-plugin-commonjs": "^7.0.0",
+    "rollup-watch": "^3.2.2"
   }
 }
