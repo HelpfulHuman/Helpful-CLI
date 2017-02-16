@@ -1,4 +1,4 @@
-import { each } from "async";
+import { applyEachSeries } from "async";
 import createContext from "./tasks/createContext";
 import validateSource from "./tasks/validateSource";
 import saveLocalCopy from "./tasks/saveLocalCopy";
@@ -11,7 +11,7 @@ import end from "./tasks/endingNotification";
 /**
  * The operational tasks that occur (in order).
  */
-const TASKS = [
+const tasks = [
   validateSource,
   saveLocalCopy,
   validateManifest,
@@ -23,8 +23,11 @@ const TASKS = [
 /**
  * Start the scaffolding process using a path that either
  * exists locally or at a remote URL.
+ *
+ * @param  {String} sourcePath
+ * @param  {String} targetPath
  */
-export default function main (sourcePath, targetPath) {
+export function add (sourcePath, targetPath) {
   var ctx = createContext(sourcePath, targetPath);
-  each(TASKS.map(t => t.bind(ctx)), end.bind(ctx));
+  applyEachSeries(tasks, ctx, (err) => end(err, ctx));
 }
