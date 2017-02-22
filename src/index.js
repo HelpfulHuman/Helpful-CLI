@@ -29,3 +29,11 @@ export function install (sourcePath, targetPath) {
   var ctx = createContext(sourcePath, targetPath);
   applyEachSeries(tasks, ctx, (err) => end(err, ctx));
 }
+
+/**
+ * Expose manifest validation as a standalone task.
+ *
+ * @param  {String} manifestPath
+ */
+export function validate (manifestPath) {
+}

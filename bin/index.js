@@ -13,10 +13,10 @@ program
   });
 
 program
-  .command("test")
+  .command("validate")
   .description("test a local project template configuration")
   .action(function () {
-    // TODO
+    helpful.validate();
   });
 
 program.parse(process.argv);
