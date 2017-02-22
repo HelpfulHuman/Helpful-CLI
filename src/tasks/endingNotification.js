@@ -23,6 +23,7 @@ function printError (err) {
   ${chalk.bold("Why?")}\n
   ${chalk.red(err.message)}
   `);
+  process.exit(1);
 }
 
 /**
