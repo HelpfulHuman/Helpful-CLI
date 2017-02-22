@@ -16,6 +16,6 @@ npm install -g helpful-cli
 
 1. Find a repository that contains a `helpful.json` manifest file.
 1. Change to the directory that you would like to unpack the template into.
-1. Run `helpme add <template_url>` to start the installer.
+1. Run `helpme install <template_url>` to start the installer.
 
 ## Creating Custom Templates

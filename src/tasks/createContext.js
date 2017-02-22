@@ -10,14 +10,11 @@ import path from "path";
  */
 export default function createContext (sourcePath, targetPath) {
   return {
-    source: {
-      path: sourcePath,
-      url: null,
+    paths: {
+      source: sourcePath,
+      targetRaw: targetPath,
+      target: path.resolve(targetPath),
       temp: null
-    },
-    target: {
-      originalPath: targetPath,
-      path: path.resolve(targetPath)
     },
     input: {},
     manifest: {

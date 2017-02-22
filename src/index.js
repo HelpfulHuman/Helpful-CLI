@@ -1,7 +1,6 @@
 import { applyEachSeries } from "async";
 import createContext from "./tasks/createContext";
-import validateSource from "./tasks/validateSource";
-import saveLocalCopy from "./tasks/saveLocalCopy";
+import fetchRemote from "./tasks/fetchRemote";
 import validateManifest from "./tasks/validateManifest";
 import askQuestions from "./tasks/askQuestions";
 import copyFiles from "./tasks/copyFiles";
@@ -12,8 +11,7 @@ import end from "./tasks/endingNotification";
  * The operational tasks that occur (in order).
  */
 const tasks = [
-  validateSource,
-  saveLocalCopy,
+  fetchRemote,
   validateManifest,
   askQuestions,
   copyFiles,
@@ -27,7 +25,7 @@ const tasks = [
  * @param  {String} sourcePath
  * @param  {String} targetPath
  */
-export function add (sourcePath, targetPath) {
+export function install (sourcePath, targetPath) {
   var ctx = createContext(sourcePath, targetPath);
   applyEachSeries(tasks, ctx, (err) => end(err, ctx));
 }

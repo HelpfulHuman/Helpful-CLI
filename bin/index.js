@@ -6,10 +6,10 @@ var helpful = require("../dist");
 program.version(pkg.version);
 
 program
-  .command("add <template_url>")
+  .command("install <template_url>")
   .description("create a new project from a template source")
   .action(function (template_url) {
-    helpful.add(template_url, process.cwd());
+    helpful.install(template_url, process.cwd());
   });
 
 program
