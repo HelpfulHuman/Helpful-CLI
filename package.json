@@ -1,13 +1,21 @@
 {
   "name": "helpful-cli",
-  "version": "1.0.8",
-  "description": "Command line utility for the Helpful Human team.",
-  "main": "index.js",
+  "version": "2.0.0-alpha",
+  "description": "Command line utility for custom project scaffolding.",
+  "main": "./dist/index.js",
   "scripts": {
-    "test": "mocha"
+    "preversion": "npm test",
+    "version": "npm run build",
+    "postversion": "git push origin master && git push origin master --tags",
+    "clean": "rimraf dist",
+    "build": "rollup -c",
+    "watch": "npm run build -- --watch",
+    "test": "mocha",
+    "tdd": "npm run test -- --watch",
+    "prepublish": "npm run clean && npm run build"
   },
   "bin": {
-    "helpful": "./index.js"
+    "helpme": "./bin/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,9 +25,10 @@
     "helpfulhuman",
     "helpful",
     "tool",
-    "cli"
+    "cli",
+    "scaffolding"
   ],
-  "author": "Nick Glenn <nick@helpfulhuman.com>",
+  "author": "Helpful Human <hello@helpfulhuman.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/helpfulhuman/helpful-cli/issues"
@@ -29,6 +38,7 @@
     "async": "^2.0.1",
     "chalk": "^1.1.3",
     "commander": "^2.9.0",
+    "figures": "^2.0.0",
     "fs-extra": "^0.30.0",
     "glob": "^7.1.0",
     "inquirer": "^1.2.1",
@@ -36,6 +46,19 @@
     "minimatch": "^3.0.3",
     "nunjucks": "^2.5.2",
     "ramda": "^0.22.1",
-    "shelljs": "^0.7.4"
+    "request": "^2.79.0",
+    "shelljs": "^0.7.4",
+    "shortid": "^2.2.6",
+    "unzip": "^0.1.11"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "rimraf": "^2.5.4",
+    "rollup": "^0.41.4",
+    "rollup-plugin-buble": "^0.15.0",
+    "rollup-plugin-commonjs": "^7.0.0",
+    "rollup-watch": "^3.2.2",
+    "sinon": "^1.17.7"
   }
 }

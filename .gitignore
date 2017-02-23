@@ -1,4 +1,5 @@
 node_modules/
 typings/
 testing/
-npm-debug.log
+dist/
+*.log
