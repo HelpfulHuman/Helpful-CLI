@@ -1,21 +1,28 @@
 import { applyEachSeries } from "async";
 import createContext from "./tasks/createContext";
 import fetchRemote from "./tasks/fetchRemote";
+import loadManifest from "./tasks/loadManifest";
 import validateManifest from "./tasks/validateManifest";
 import askQuestions from "./tasks/askQuestions";
 import copyFiles from "./tasks/copyFiles";
-import runSetupCommands from "./tasks/runSetupCommands";
+import runCommands from "./tasks/runCommands";
+import cleanUp from "./tasks/cleanUp";
 import end from "./tasks/endingNotification";
+
+// Give our commands some breathing room!
+process.stdout.write("\n\n");
 
 /**
  * The operational tasks that occur (in order).
  */
 const tasks = [
   fetchRemote,
+  loadManifest,
   validateManifest,
   askQuestions,
   copyFiles,
-  runSetupCommands,
+  runCommands,
+  cleanUp,
 ];
 
 /**
