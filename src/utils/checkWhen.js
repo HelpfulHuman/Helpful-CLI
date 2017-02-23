@@ -1,5 +1,4 @@
 import vm from "vm";
-import util from "util";
 
 /**
  * Check a when evaluation safely in a node VM.
@@ -15,9 +14,9 @@ export default function (ctx, val) {
     throw new Error("When values must be a function or string that can be evaluated!");
   }
 
-  var script = new vm.Script(`var result = ${val}`);
-  var context = new vm.createContext(Object.assign({}, ctx.input));
-  var capture = util.inspect(context.runInContext(script));
-
-  return !!capture.result;
+  var sandbox = Object.assign({ __RESULT__: false }, ctx.input);
+  var script = new vm.Script(`__RESULT__ = ${val}`);
+  var context = new vm.createContext(sandbox);
+  script.runInContext(context);
+  return sandbox.__RESULT__;
 }
