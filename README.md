@@ -1,8 +1,10 @@
 # Helpful CLI
 
+**tl; dr** "Templatize Anything"
+
 > This tool is currently undergoing a massive rewrite.  You can still use the original version of this tool by installing it via `npm`, or review its source on the `v1` branch.
 
-Command line utility for quickly scaffolding projects from remote templates.  Like a `Makefile` but on steroids.
+Command line utility for quickly scaffolding new projects, or add files to existing projects, using remote templates.  Like a `Makefile` but on steroids.
 
 ## Installation
 
