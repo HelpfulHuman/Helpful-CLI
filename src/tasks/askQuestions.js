@@ -23,7 +23,7 @@ export default function (ctx, next) {
     .prompt(questions)
     .then(function (answers) {
       ctx.input = answers;
-      process.stdout.write("\n\nGreat, thanks!\n\n");
+      process.stdout.write("\nGreat, thanks!\n\n\n");
       next();
     })
     .catch(next);
