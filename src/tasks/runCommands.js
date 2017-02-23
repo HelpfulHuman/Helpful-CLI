@@ -11,8 +11,6 @@ import * as status from "../utils/status";
  * @param  {Callback<Error>} next
  */
 export default function (ctx, next) {
-  status.report("Running the specified set up commands");
-
   // get the commands to run
   var commands = ctx.manifest.run;
 
@@ -21,6 +19,8 @@ export default function (ctx, next) {
 
   // short circuit if we have no commands
   if (commands.length === 0) return next();
+
+  status.report("Running the specified set up commands");
 
   // change to the target directory
   sh.cd(ctx.paths.target);
