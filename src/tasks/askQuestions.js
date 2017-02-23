@@ -7,24 +7,24 @@ import inquirer from "inquirer";
  * @param  {Callback<Error>} next
  */
 export default function (ctx, next) {
-  return next(); // TEMP BYPASS
-  // format the questions from OUR format to inquirer's
-  var questions = this.manifest.ask.map(formatQuestion);
-  // ask the questions and collect input
-  inquirer.prompt(questions, (err, answers) => {
-    // add the answers to the context if there are no errors
-    if ( ! err) this.input = answers;
-    next(err);
-  });
-}
+  // get the questions that we're going to ask
+  var questions = ctx.manifest.ask;
 
-/**
- * Act as an abstraction layer between our structure/syntax for questions
- * and inquirer's.
- *
- * @param  {Object[]} questions
- * @return {Object[]}
- */
-function formatQuestion (q) {
-  return q;
+  // ensure that we have an array to work with
+  questions = (Array.isArray(questions) ? questions : []);
+
+  // skip the wizard if no questions available
+  if (questions.length === 0) return next();
+
+  process.stdout.write("Time to get some input:\n\n");
+
+  // ask the questions and collect input
+  inquirer
+    .prompt(questions)
+    .then(function (answers) {
+      ctx.input = answers;
+      process.stdout.write("\n\nGreat, thanks!\n\n");
+      next();
+    })
+    .catch(next);
 }
