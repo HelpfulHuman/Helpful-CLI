@@ -1,15 +1,20 @@
 import shortid from "shortid";
 import { someSeries } from "async";
+import os from "os";
 import path from "path";
 import * as status from "../utils/status";
 
 import github from "../remotes/github";
+import zipUrl from "../remotes/zipUrl";
+import localDir from "../remotes/localDir";
 
 /**
  * Remotes
  */
 const REMOTES = [
-  github
+  github,
+  zipUrl,
+  localDir,
 ];
 
 /**
@@ -23,8 +28,8 @@ export default function (ctx, next) {
   status.report("Attempting to fetch template");
 
   // create the temporary directory path
-  // TODO use os.tmpdir() instead
-  var tempPath = ctx.paths.temp = path.join("TEMP", shortid.generate());
+  var tempPath = path.resolve(os.tmpdir() + shortid.generate());
+  ctx.paths.temp = tempPath;
 
   someSeries(REMOTES, function (remote, next) {
     remote(ctx.paths.source, tempPath, next);
