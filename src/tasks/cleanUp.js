@@ -8,6 +8,7 @@ import * as status from "../utils/status";
  * @param  {Callback<Error>} next
  */
 export default function (ctx, next) {
+  if ( ! ctx.paths.temp) return next();
   status.report("Cleaning up temporary files");
   fs.remove(ctx.paths.temp, function (err) {
     if (err) status.fail();

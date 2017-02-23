@@ -22,7 +22,6 @@ const tasks = [
   askQuestions,
   copyFiles,
   runCommands,
-  cleanUp,
 ];
 
 /**
@@ -34,7 +33,9 @@ const tasks = [
  */
 export function install (sourcePath, targetPath) {
   var ctx = createContext(sourcePath, targetPath);
-  applyEachSeries(tasks, ctx, (err) => end(err, ctx));
+  applyEachSeries(tasks, ctx, function (err1) {
+    cleanUp(ctx, (err2) => end(err1 || err2, ctx));
+  });
 }
 
 /**
