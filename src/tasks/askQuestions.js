@@ -16,7 +16,7 @@ export default function (ctx, next) {
   // skip the wizard if no questions available
   if (questions.length === 0) return next();
 
-  process.stdout.write("Time to get some input:\n\n");
+  process.stdout.write("\n\nTime to get some input:\n\n");
 
   // ask the questions and collect input
   inquirer
