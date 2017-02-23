@@ -4,6 +4,8 @@ import { eachLimit, waterfall, map, filter } from "async";
 import { uniqBy, flatten } from "lodash";
 import * as status from "../utils/status";
 import path from "path";
+import processText from "../utils/processText";
+
 const assign = Object.assign;
 
 /**
@@ -59,24 +61,22 @@ function findFiles (ctx, fileOp, next) {
  * path for each file operation should be.
  *
  * @param  {Object} ctx
- * @param  {Object[]} ops
+ * @param  {Object[]} op
  * @param  {Callback<Error, Array>} next
  */
-function addDestinationPath (ctx, ops, next) {
-  var { template } = ctx.paths;
-
+function addDestinationPath (ctx, op, next) {
   // extract out the file info from the template
-  var file = path.parse(ops.file.substr(template.length));
+  var file = path.parse(op.file);
 
   // crate a new dest string with replacements
   var dest = path.join(
-    template,
-    (ops.renameDir || file.dir),
-    (ops.renameFile || file.base)
+    ctx.paths.target,
+    (op.renameDir || file.dir),
+    (op.renameFile || file.base)
   );
 
   // return the update object
-  return Object.assign(ops, { dest });
+  return Object.assign(op, { dest });
 }
 
 /**
@@ -87,9 +87,8 @@ function addDestinationPath (ctx, ops, next) {
  */
 function validateOperation (ctx, op, next) {
   // check op info against user input
-
   fs.exists(op.dest, function (exists) {
-    next(null, (!exists || op.overwrite));
+    next(null, ( ! exists || op.overwrite));
   });
 }
 
@@ -104,10 +103,13 @@ function validateOperation (ctx, op, next) {
 function processFile (ctx, op, next) {
   waterfall([
     // read the file
-    (next) => fs.readFile(op.file, "utf8", next),
+    (next) => {
+      var file = path.join(ctx.paths.template, op.file);
+      fs.readFile(file, "utf8", next);
+    },
     // parse the contents of the file using user input
-    (contents, next) => processText(ctx, contents),
+    (contents, next) => next(null, processText(ctx, contents)),
     // write the contents into the desired file location
-    (contents, next) => fs.writeFile(op.dest, contents, next)
+    (contents, next) => fs.outputFile(op.dest, contents, next)
   ], next);
 }

@@ -28,7 +28,7 @@ export default function (ctx, next) {
   status.report("Attempting to fetch template");
 
   // create the temporary directory path
-  var tempPath = path.resolve(os.tmpdir() + shortid.generate());
+  var tempPath = path.join(os.tmpdir(), shortid.generate());
   ctx.paths.temp = tempPath;
 
   someSeries(REMOTES, function (remote, next) {
