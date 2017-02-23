@@ -15,14 +15,10 @@ export default function (url, dest, done) {
   // make sure our target directory exists
   fs.ensureDirSync(dest);
 
-  // create write stream into the folder
-  var output = fs.createWriteStream(dest);
-
   // attempt to stream .zip contents into dest folder
   var stream = request
     .get(url)
-    .pipe(unzip.Parse())
-    .pipe(output);
+    .pipe(unzip.Extract({ path: dest }));
 
   // handle errors
   stream.on("error", done);
