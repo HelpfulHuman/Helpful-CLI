@@ -5,6 +5,7 @@ import { uniqBy, flatten } from "lodash";
 import * as status from "../utils/status";
 import path from "path";
 import processText from "../utils/processText";
+import checkWhen from "../utils/checkWhen";
 
 const assign = Object.assign;
 
@@ -86,7 +87,12 @@ function addDestinationPath (ctx, op, next) {
  * @param  {Callback<Error, Array>} next
  */
 function validateOperation (ctx, op, next) {
-  // check op info against user input
+  // check the when value
+  if ( ! checkWhen(ctx, op.when)) {
+    return next();
+  }
+
+  // see if the file exists
   fs.exists(op.dest, function (exists) {
     next(null, ( ! exists || op.overwrite));
   });
