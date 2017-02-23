@@ -19,11 +19,9 @@ export default function (pattern, checkUrl, downloadUrl, downloader) {
       var check = source.replace(pattern, checkUrl);
       request(check, function (err, { statusCode }) {
         var valid = ( ! err && statusCode >= 200 && statusCode <= 299);
-        if ( ! valid) next(err);
-        else {
-          var download = source.replace(pattern, downloadUrl);
-          downloader(download, dest, (err) => done(err, !err));
-        }
+        if ( ! valid) return done(err);
+        var download = source.replace(pattern, downloadUrl);
+        downloader(download, dest, (err) => done(err, !err));
       });
     }
   };
