@@ -10,17 +10,15 @@ import path from "path";
  */
 export default function createContext (sourcePath, targetPath) {
   return {
+    manifestName: "helpful",
     paths: {
       source: sourcePath,
       targetRaw: targetPath,
       target: path.resolve(targetPath),
-      temp: null
+      temp: null,
+      template: null
     },
     input: {},
-    manifest: {
-      ask: [],
-      copy: {},
-      run: []
-    }
+    manifest: {}
   };
 }

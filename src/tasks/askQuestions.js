@@ -9,7 +9,7 @@ import inquirer from "inquirer";
 export default function (ctx, next) {
   return next(); // TEMP BYPASS
   // format the questions from OUR format to inquirer's
-  var questions = this.manifest.questions.map(formatQuestion);
+  var questions = this.manifest.ask.map(formatQuestion);
   // ask the questions and collect input
   inquirer.prompt(questions, (err, answers) => {
     // add the answers to the context if there are no errors
