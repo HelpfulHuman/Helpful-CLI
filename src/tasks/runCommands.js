@@ -2,6 +2,7 @@ import sh from "shelljs";
 import { eachSeries } from "async";
 import processText from "../utils/processText";
 import * as status from "../utils/status";
+import checkWhen from "../utils/checkWhen";
 
 /**
  * Spawn async child processes that can be used to run the setup
@@ -40,6 +41,11 @@ export default function (ctx, next) {
  * @param  {Callback<Error>} next
  */
 function processCommand (ctx, op, next) {
+  // check the when value
+  if ( ! checkWhen(ctx, op.when)) {
+    return next();
+  }
+
   // process the command to run
   var cmd = processText(ctx, op.cmd);
 

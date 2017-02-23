@@ -18,6 +18,8 @@ export default function (ctx, next) {
 
   process.stdout.write("\n\nTime to get some input:\n\n");
 
+  // TODO overwrite the existing "when" functions with our abstraction
+
   // ask the questions and collect input
   inquirer
     .prompt(questions)
