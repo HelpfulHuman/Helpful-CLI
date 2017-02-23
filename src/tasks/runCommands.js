@@ -44,7 +44,7 @@ function processCommand (ctx, op, next) {
   var cmd = processText(ctx, op.cmd);
 
   // run the formatted command
-  sh.exec(cmd, function (code, stdout, stderr) {
+  sh.exec(cmd, { silent: true }, function (code, stdout, stderr) {
     if (code !== 0) next(new Error(stderr));
     else next();
   });
