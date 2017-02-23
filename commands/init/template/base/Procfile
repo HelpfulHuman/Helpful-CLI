@@ -1,3 +1,0 @@
-{% if tags.node -%}
-web: node server/index.js
-{%- endif %}
