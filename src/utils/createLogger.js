@@ -18,7 +18,7 @@ export default function (strictMode) {
     warn (message) {
       report.messages.push({ type: "warning", message });
     },
-    fatal (message) {
+    fail (message) {
       if (strictMode) throw new Error(message);
       report.messages.push({ type: "error", message });
     }
