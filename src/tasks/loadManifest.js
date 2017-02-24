@@ -1,6 +1,6 @@
 import glob from "glob";
 import path from "path";
-import yaml from "yaml";
+import yaml from "yamljs";
 import * as status from "../utils/status";
 
 /**
