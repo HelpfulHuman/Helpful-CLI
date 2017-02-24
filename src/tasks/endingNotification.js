@@ -32,6 +32,6 @@ ${chalk.red(err.message)}
 function printSuccess (ctx) {
   process.stdout.write(`\n\n
 ${chalk.bold.green(figures.tick + " Success!")}\n
-We successfully added the package's contents to your current directory.\n\n
+We successfully added the chosen template contents to your current directory.\n\n
   `);
 }
