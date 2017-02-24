@@ -3,6 +3,7 @@ import createContext from "./tasks/createContext";
 import fetchRemote from "./tasks/fetchRemote";
 import loadManifest from "./tasks/loadManifest";
 import validateManifest from "./tasks/validateManifest";
+import validateManifestOnly from "./tasks/validateManifestOnly";
 import askQuestions from "./tasks/askQuestions";
 import copyFiles from "./tasks/copyFiles";
 import runCommands from "./tasks/runCommands";
@@ -44,4 +45,15 @@ export function install (sourcePath, targetPath) {
  * @param  {String} manifestPath
  */
 export function validate (manifestPath) {
+  var ctx = createContext(manifestPath, manifestPath);
+  ctx.paths.temp = manifestPath;
+  validateManifestOnly(ctx);
+}
+
+/**
+ * Start a wizard to create a new manifest file for the specified path.
+ *
+ * @param  {String} manifestPath
+ */
+export function templatize (manifestPath) {
 }

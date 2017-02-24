@@ -6,17 +6,17 @@ var helpful = require("../dist");
 program.version(pkg.version);
 
 program
-  .command("install <template_url>")
+  .command("install <template_url> [target_dir]")
   .description("create a new project from a template source")
-  .action(function (template_url) {
-    helpful.install(template_url, process.cwd());
+  .action(function (template_url, target_dir) {
+    helpful.install(template_url, target_dir || process.cwd());
   });
 
 program
-  .command("validate")
+  .command("validate [target_dir]")
   .description("test a local project template configuration")
-  .action(function () {
-    helpful.validate();
+  .action(function (target_dir) {
+    helpful.validate(target_dir || process.cwd());
   });
 
 program.parse(process.argv);

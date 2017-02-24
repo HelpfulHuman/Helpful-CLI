@@ -1,5 +1,7 @@
 import chalk from "chalk";
 import figures from "figures";
+import checkWhen from "../utils/checkWhen";
+import processText from "../utils/processText";
 
 /**
  * Notify the user of an error (if any), otherwise log out
@@ -32,6 +34,15 @@ ${chalk.red(err.message)}
 function printSuccess (ctx) {
   process.stdout.write(`\n\n
 ${chalk.bold.green(figures.tick + " Success!")}\n
-We successfully added the package's contents to your current directory.\n\n
-  `);
+We successfully added the chosen template contents to your current directory.\n\n`);
+
+  if (
+    ctx.manifest.done
+    && typeof ctx.manifest.done.message === "string"
+    && checkWhen(ctx, ctx.manifest.done.when)
+  ) {
+    var output = processText(ctx, ctx.manifest.done.message);
+    process.stdout.write("And now a word from the author:\n");
+    process.stdout.write(output + "\n\n");
+  }
 }

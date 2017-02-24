@@ -1,4 +1,5 @@
 import * as status from "../utils/status";
+import lintManifest from "../utils/lintManifest";
 
 /**
  * Load, validate and parse the helpful.json manifest
@@ -10,6 +11,14 @@ import * as status from "../utils/status";
  */
 export default function (ctx, next) {
   status.report("Validating manifest file");
+
+  try {
+    lintManifest(ctx.lintManifest);
+  } catch (err) {
+    status.fail();
+    return next(err);
+  }
+
   status.complete();
   next();
 }
