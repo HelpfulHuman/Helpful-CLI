@@ -60,6 +60,6 @@ export default function (ctx) {
     });
 
     process.stdout.write(`\n\n`);
-    process.exit(0);
+    process.exit(sum.error > 0 ? -1 : 0);
   });
 }
