@@ -11,26 +11,26 @@ import figures from "figures";
  * @param  {Object} ctx
  */
 export default function (ctx) {
-  process.stdout.write(`Welcome!  We're going to attempt to validate your project's manifest file.`);
+  process.stdout.write(`Welcome!  We're going to attempt to validate your project's manifest file.\n\n`);
   loadManifest(ctx, function (err) {
     if (err) {
-      process.stdout.write(`\n\n${chalk.bold.bgRed("Failure!  Error!  Sadness!")}`);
-      process.stdout.write(`\n\nWe were unable to locate or load your manifest file.  Here's why:`);
-      process.stdout.write(`\n\n${chalk.red(err.message)}\n\n`);
+      process.stdout.write(`${chalk.bold.bgRed("Failure!  Error!  Sadness!")}\n\n`);
+      process.stdout.write(`We were unable to locate or load your manifest file.  Here's why:\n\n`);
+      process.stdout.write(`${chalk.red(err.message)}\n\n\n`);
       process.exit(1);
     }
 
-    process.stdout.write(`\n\nLinting your manifest now.  This make take a moment...`);
+    process.stdout.write(`\nLinting your manifest now.  This make take a moment...\n\n`);
 
     // lint our manifest
     var logger = lintManifest(ctx.manifest, false);
     var messages = logger.all();
 
-    process.stdout.write(`\n\nAnd the results are in!  `);
+    process.stdout.write(`And the results are in!  `);
 
     // bail out early if no issues
     if (messages.length === 0) {
-      process.stdout.write(`Everything looks perfect!  You're good to go.\n\n`);
+      process.stdout.write(`Everything looks perfect!  You're good to go.\n\n\n`);
       process.exit(0);
     }
 
@@ -51,10 +51,10 @@ export default function (ctx) {
           message = figures.info + " " + message;
       }
 
-      process.stdout.write(message);
+      process.stdout.write(message + "\n");
     });
 
     process.stdout.write(`\n\n`);
-
+    process.exit(0);
   });
 }

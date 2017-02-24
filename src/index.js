@@ -45,7 +45,8 @@ export function install (sourcePath, targetPath) {
  * @param  {String} manifestPath
  */
 export function validate (manifestPath) {
-  var ctx = createContext(manifestPath, "");
+  var ctx = createContext(manifestPath, manifestPath);
+  ctx.paths.temp = manifestPath;
   validateManifestOnly(ctx);
 }
 
