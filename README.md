@@ -174,6 +174,27 @@ Name | Type | Description
 }
 ```
 
+### Final Message on Success
+
+It's not unlikely that you'll want to include a closing message upon successful installation of your template.  You can do this using an object for a `done` property.  The done property contains only a "Done object", which is outlined below.
+
+#### Done Object
+
+Name | Type | Description
+-----|------|------------
+**message** | `String` | Required. The message will be output as the final statement upon successful installation of a template.  Will be parsed by Nunjucks.
+**when** | `String|Function` | Will only run the command when the result is `true`.  See [Using `when` Strings](#using-when-strings) for more information on `String` usage.
+
+#### Example
+
+```json
+{
+  "done": {
+    "message": "Run `npm start` to see your application"
+  }
+}
+```
+
 ### Using `when` Strings
 
 Doing any kind of circumstancial or dynamic checking with static files like JSON or YAML is difficult.  To circumvent this limitation, we've implemented the `when` property for `copy` and `run` objects.  This property can take a string as an alternative that will be treated as a JS expression that only has access to user input (from the `ask` step).
