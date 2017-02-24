@@ -11,7 +11,7 @@ import figures from "figures";
  * @param  {Object} ctx
  */
 export default function (ctx) {
-  process.stdout.write(`Welcome!  We're going to attempt to validate your project's manifest file.\n\n`);
+  process.stdout.write(`Welcome!  We're going to attempt to validate your project's manifest file.  Just to be clear, this function is primarily checking schema and formatting.  Though we will try to help you along with best practices, we're not tracking down all your files or running your commands for you.\n\n\n\n`);
   loadManifest(ctx, function (err) {
     if (err) {
       process.stdout.write(`${chalk.bold.bgRed("Failure!  Error!  Sadness!")}\n\n`);
