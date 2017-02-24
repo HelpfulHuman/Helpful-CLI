@@ -36,7 +36,9 @@ export default function (ctx) {
 
     // count up the results for the output
     var sum = countBy(messages, "type");
-    process.stdout.write(`\n\nErrors: ${sum.error}   Warnings: ${sum.warning}    Suggestions: ${sum.suggestion}\n\n`);
+    process.stdout.write(`\n\nErrors: ${sum.error || 0}  `);
+    process.stdout.write(`Warnings: ${sum.warning || 0}  `);
+    process.stdout.write(`Suggestions: ${sum.suggestion || 0}\n\n`);
 
     // run through the logs we captured and format them appropriately
     messages.forEach(function ({ type, message }) {

@@ -13,14 +13,14 @@ export default function (strictMode) {
       return messages.slice(0);
     },
     suggest (message) {
-      report.messages.push({ type: "suggestion", message });
+      messages.push({ type: "suggestion", message });
     },
     warn (message) {
-      report.messages.push({ type: "warning", message });
+      messages.push({ type: "warning", message });
     },
     fail (message) {
       if (strictMode) throw new Error(message);
-      report.messages.push({ type: "error", message });
+      messages.push({ type: "error", message });
     }
   };
 }
