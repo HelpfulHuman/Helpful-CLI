@@ -1,6 +1,6 @@
 import loadManifest from "./loadManifest";
 import lintManifest from "../utils/lintManifest";
-import status from "../utils/status";
+import * as status from "../utils/status";
 import { countBy } from "lodash";
 import chalk from "chalk";
 import figures from "figures";
