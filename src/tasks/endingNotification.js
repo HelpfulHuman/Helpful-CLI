@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import figures from "figures";
+import checkWhen from "../utils/checkWhen";
 import processText from "../utils/processText";
 
 /**
@@ -35,8 +36,12 @@ function printSuccess (ctx) {
 ${chalk.bold.green(figures.tick + " Success!")}\n
 We successfully added the chosen template contents to your current directory.\n\n`);
 
-  if (typeof ctx.manifest.onComplete === "string") {
-    var output = processText(ctx, ctx.manifest.onComplete);
+  if (
+    ctx.manifest.done
+    && typeof ctx.manifest.done.message === "string"
+    && checkWhen(ctx, ctx.manifest.done.when)
+  ) {
+    var output = processText(ctx, ctx.manifest.done.message);
     process.stdout.write("And now a word from the author:\n");
     process.stdout.write(output + "\n\n");
   }
