@@ -114,7 +114,7 @@ function processSingleFileOp (log, item, i) {
   }
 
   if (typeof item.path !== "string") {
-    log.fail(`ask.${i}.path: File operation paths must be a string`);
+    log.fail(`copy.${i}.path: File operation paths must be a string`);
     return null;
   }
 
@@ -122,7 +122,7 @@ function processSingleFileOp (log, item, i) {
   // TODO renameFile must be a string if set
 
   if (item.renameFile && isGlob(item.path)) {
-    log.warn(`ask.${i}: You should not use the \`renameFile\` option with globs`);
+    log.warn(`copy.${i}: You should not use the \`renameFile\` option with globs`);
   }
 
   // TODO renameDir must be a string if set
