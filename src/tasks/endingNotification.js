@@ -33,8 +33,7 @@ ${chalk.red(err.message)}
 function printSuccess (ctx) {
   process.stdout.write(`\n\n
 ${chalk.bold.green(figures.tick + " Success!")}\n
-We successfully added the chosen template contents to your current directory.\n\n
-  `);
+We successfully added the chosen template contents to your current directory.\n\n`);
 
   if (typeof ctx.manifest.onComplete === "string") {
     var output = processText(ctx, ctx.manifest.onComplete);
