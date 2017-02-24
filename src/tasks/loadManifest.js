@@ -1,5 +1,6 @@
 import glob from "glob";
 import path from "path";
+import yaml from "yaml";
 import * as status from "../utils/status";
 
 /**
@@ -13,7 +14,7 @@ export default function (ctx, next) {
   status.report("Searching for the manifest file");
   var tempDir = ctx.paths.temp;
   var manifestName = ctx.manifestName;
-  var pattern = path.join(tempDir, `**/${manifestName}.{js,json}`);
+  var pattern = path.join(tempDir, `**/${manifestName}.{js,json,yml,yaml}`);
   glob(pattern, {}, function (err, files) {
     try {
       if (err) throw err;
@@ -23,7 +24,11 @@ export default function (ctx, next) {
 
       var manifestPath = files[0];
       ctx.paths.template = path.resolve(path.dirname(manifestPath));
-      ctx.manifest = require(manifestPath);
+      if (path.extname(manifestPath).indexOf(".y") === 0) {
+        ctx.manifest = yaml.load(manifestPath);
+      } else {
+        ctx.manifest = require(manifestPath);
+      }
     } catch (e) {
       status.fail();
       return next(e);
