@@ -45,3 +45,11 @@ export function install (sourcePath, targetPath) {
  */
 export function validate (manifestPath) {
 }
+
+/**
+ * Start a wizard to create a new manifest file for the specified path.
+ *
+ * @param  {String} manifestPath
+ */
+export function templatize (manifestPath) {
+}
