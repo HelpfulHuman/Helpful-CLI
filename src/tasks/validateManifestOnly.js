@@ -1,5 +1,6 @@
 import loadManifest from "./loadManifest";
 import lintManifest from "../utils/lintManifest";
+import status from "../utils/status";
 import { countBy } from "lodash";
 import chalk from "chalk";
 import figures from "figures";
@@ -20,11 +21,13 @@ export default function (ctx) {
       process.exit(1);
     }
 
-    process.stdout.write(`\nLinting your manifest now.  This make take a moment...\n\n`);
+    status.report("Linting manifest file now");
 
     // lint our manifest
     var logger = lintManifest(ctx.manifest, false);
     var messages = logger.all();
+
+    status.complete();
 
     process.stdout.write(`And the results are in!  `);
 
