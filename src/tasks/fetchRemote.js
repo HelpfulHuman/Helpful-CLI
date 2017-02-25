@@ -4,7 +4,7 @@ import os from "os";
 import path from "path";
 import * as status from "../utils/status";
 
-import macros form "../remotes/macros";
+import macros from "../remotes/macros";
 import github from "../remotes/github";
 import zipUrl from "../remotes/zipUrl";
 import localDir from "../remotes/localDir";
