@@ -6,13 +6,14 @@ import (
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/spf13/cobra"
 	"os"
+	"path/filepath"
 	"strings"
 	"text/template"
 )
 
 var (
 	addCmd = &cobra.Command{
-		Use:   "add [module/template]",
+		Use:   "add <module/template>",
 		Short: "Compiles and copies template files to your current directory",
 		Long:  "Attempts to find, build and copy module template files into the current working directory.",
 		RunE:  runAdd,
@@ -81,6 +82,10 @@ func runAdd(cmd *cobra.Command, args []string) error {
 		tmpl, err := template.ParseFiles(from)
 		if err != nil {
 			return fmt.Errorf("failed to parse template file: %v", err)
+		}
+
+		if err = os.MkdirAll(filepath.Dir(to), os.ModePerm); err != nil {
+			return fmt.Errorf("failed to prepare nested directory: %v", err)
 		}
 
 		f, err := os.Create(to)
