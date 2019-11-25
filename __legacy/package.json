@@ -15,7 +15,7 @@
     "prepublish": "npm run clean && npm run build"
   },
   "bin": {
-    "helpme": "./bin/index.js"
+    "helpme": "bin/index.js"
   },
   "repository": {
     "type": "git",

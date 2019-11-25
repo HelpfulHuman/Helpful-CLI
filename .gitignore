@@ -1,5 +1,2 @@
-node_modules/
-typings/
-testing/
-dist/
-*.log
+__legacy
+testing
