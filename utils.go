@@ -51,3 +51,28 @@ func loadInstalledModuleConfig(modulePath string) (cfg *Config, err error) {
 	err = errors.New("unable to locate config file in paths: " + strings.Join(configPaths, " "))
 	return
 }
+
+func listInstalledModules() ([]string, error) {
+	installPath, err := getModuleInstallPath("")
+	if err != nil {
+		return nil, err
+	}
+
+	installed := []string{}
+
+	if err = filepath.Walk(installPath, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if info.IsDir() {
+			installed = append(installed, info.Name())
+		}
+
+		return nil
+	}); err != nil {
+		return nil, err
+	}
+
+	return installed, nil
+}

@@ -17,6 +17,7 @@ func init() {
 	//rootCmd.AddCommand(initCmd)
 	rootCmd.AddCommand(installCmd)
 	rootCmd.AddCommand(addCmd)
+	rootCmd.AddCommand(listCmd)
 }
 
 func main() {

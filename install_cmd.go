@@ -28,8 +28,15 @@ func runInstall(cmd *cobra.Command, args []string) error {
 
 	mode := getter.ClientModeAny
 
+	// get the manifest
+	manifest, err := loadManifest()
+	if err != nil {
+		return fmt.Errorf("failed to load installation manifest: %v", err)
+	}
+
 	// get the name of the module
-	ss := strings.Split(args[0], "/")
+	url := args[0]
+	ss := strings.Split(url, "/")
 	name := ss[len(ss)-1]
 
 	if err := survey.AskOne(&survey.Input{
@@ -40,6 +47,18 @@ func runInstall(cmd *cobra.Command, args []string) error {
 	}
 
 	// TODO: validate the given name and make sure its alphanumerics only
+
+	// check if the given install name has been used already
+	_, ok := manifest[name]
+	if ok {
+		return errors.New(name + " is already in use by another module")
+	}
+
+	manifest[name] = InstalledModule{
+		Url: url,
+	}
+
+	// TODO: check that the downloaded module contains a valid config file
 
 	dest, err := getModuleInstallPath(name)
 	if err != nil {
@@ -58,7 +77,7 @@ func runInstall(cmd *cobra.Command, args []string) error {
 	// Build the client
 	client := &getter.Client{
 		Ctx:     ctx,
-		Src:     args[0],
+		Src:     url,
 		Dst:     dest,
 		Pwd:     pwd,
 		Mode:    mode,
@@ -87,10 +106,16 @@ func runInstall(cmd *cobra.Command, args []string) error {
 		log.Printf("signal %v", sig)
 	case <-ctx.Done():
 		wg.Wait()
+
+		// write the original name of the module + location to a cache file
+		if err := saveManifest(manifest); err != nil {
+			return fmt.Errorf("failed to update installation manifest: %v", err)
+		}
+
 		log.Printf("success!")
 	case err := <-errChan:
 		wg.Wait()
-		log.Fatalf("Error downloading: %s", err)
+		return err
 	}
 
 	return nil
